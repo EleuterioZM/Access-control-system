@@ -1,11 +1,12 @@
+import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SENDER_EMAIL = "auth.plataforma.online@gmail.com"
-SENDER_PASSWORD = "tpmi yzlw raex dcos"
+SENDER_EMAIL = os.getenv("SENDER_EMAIL", "auth.plataforma.online@gmail.com")
+SENDER_PASSWORD = os.getenv("SENDER_PASSWORD", "tpmi yzlw raex dcos")
 
 def send_email(target_email: str, subject: str, body: str):
     msg = MIMEMultipart()
