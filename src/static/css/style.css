@@ -1,0 +1,137 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header no topo */
+header {
+    width: 100%;
+    background-color: #327ad8;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Container do login */
+.login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 300px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    color: #333333;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3faad8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #317fe4;
+}
+
+.login-container p {
+    font-size: 12px;
+    color: #d9534f;
+    margin-top: 15px;
+}
+
+/* Dashboard */
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 30px;
+}
+
+.button-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.button-grid a {
+    display: block;
+    width: 200px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    background-color: #3faad8;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.button-grid a:hover {
+    background-color: #317fe4;
+}
+
+.welcome {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 18px;
+    color: #555555;
+}
+
+.logout {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.logout a {
+    color: #d9534f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout a:hover {
+    text-decoration: underline;
+}

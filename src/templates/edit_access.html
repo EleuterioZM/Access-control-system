@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editar Recurso - Access Control System</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<h2>Editar Recurso</h2>
+
+<form method="post" action="/access/edit">
+    <input type="hidden" name="resource_id" value="{{ resource.id }}">
+    <label>Nome do Recurso:</label>
+    <input type="text" name="name" value="{{ resource.name }}" required>
+    <label>Descrição:</label>
+    <input type="text" name="description" value="{{ resource.description }}" required>
+    <button type="submit">Salvar Alterações</button>
+</form>
+
+<a href="/access/">← Voltar à Lista de Recursos</a>
+</body>
+</html>
