@@ -24,6 +24,7 @@ def create_admin():
 
     novo_admin = User(
         username="admin",
+        full_name="Administrador",
         email="admin@teste.com",
         password=hash_password("1234"),  # senha do admin
         role="admin",
