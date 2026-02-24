@@ -8,6 +8,6 @@ services:
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: SENDER_EMAIL
-        value: auth.plataforma.online@gmail.com
+        sync: false
       - key: SENDER_PASSWORD
-        sync: false # Set this in the dashboard for security
+        sync: false
