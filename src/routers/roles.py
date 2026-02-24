@@ -1,28 +1,23 @@
-from fastapi import APIRouter, Request, Form
-from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
+from fastapi import APIRouter
+from typing import List, Dict
 
 router = APIRouter(prefix="/roles", tags=["Roles"])
-templates = Jinja2Templates(directory="src/templates")
 
-# Lista simulada de roles
 roles_list = [{"id": 1, "name": "Administrador"}, {"id": 2, "name": "Usuário"}]
 
-# Listar roles (HTML)
-@router.get("/", response_class=None)
-def list_roles(request: Request):
-    return templates.TemplateResponse("roles.html", {"request": request, "roles": roles_list})
+@router.get("/")
+def list_roles():
+    return roles_list
 
-# Adicionar role
 @router.post("/add")
-def add_role(name: str = Form(...)):
+def add_role(name: str):
     new_id = len(roles_list) + 1
-    roles_list.append({"id": new_id, "name": name})
-    return RedirectResponse(url="/roles/", status_code=303)
+    new_role = {"id": new_id, "name": name}
+    roles_list.append(new_role)
+    return new_role
 
-# Remover role
-@router.post("/delete")
-def delete_role(role_id: int = Form(...)):
+@router.delete("/{role_id}")
+def delete_role(role_id: int):
     global roles_list
     roles_list = [r for r in roles_list if r["id"] != role_id]
-    return RedirectResponse(url="/roles/", status_code=303)
+    return {"message": "Role deleted"}

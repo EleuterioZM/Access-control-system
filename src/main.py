@@ -22,8 +22,7 @@ def root():
 
 # Routers
 app.include_router(api.router)
-# Outros routers (ajustar conforme necessidade se sobrarem rotas de API neles)
 app.include_router(users.router, prefix="/users")
-app.include_router(access.router, prefix="/access")
-app.include_router(audit.router, prefix="/audit")
-app.include_router(roles.router)
+app.include_router(access.router) # Prefix is in the router now
+app.include_router(audit.router)  # Prefix is in the router now
+app.include_router(roles.router)  # Prefix is in the router now

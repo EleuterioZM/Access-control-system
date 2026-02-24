@@ -1,40 +1,24 @@
-from fastapi import APIRouter, Form, Request
-from fastapi.responses import RedirectResponse
-from fastapi.templating import Jinja2Templates
+from fastapi import APIRouter, Depends, HTTPException
 from typing import List, Dict
 
-router = APIRouter(tags=["Access"])  # <--- **sem prefixo aqui**
-templates = Jinja2Templates(directory="src/templates")
+router = APIRouter(prefix="/access", tags=["Access"])
 
+# Mock resources for now, should be migrated to models if needed
 resources_db: List[Dict] = []
 
 @router.get("/")
-def list_resources(request: Request):
-    return templates.TemplateResponse("access.html", {"request": request, "resources": resources_db})
+def list_resources():
+    return resources_db
 
 @router.post("/add")
-def add_resource(description: str = Form(...)):
+def add_resource(description: str):
     new_id = len(resources_db) + 1
-    resources_db.append({"id": new_id, "description": description})
-    return RedirectResponse(url="/access/", status_code=302)
+    new_res = {"id": new_id, "description": description}
+    resources_db.append(new_res)
+    return new_res
 
-@router.post("/delete")
-def delete_resource(resource_id: int = Form(...)):
+@router.delete("/{resource_id}")
+def delete_resource(resource_id: int):
     global resources_db
     resources_db = [r for r in resources_db if r["id"] != resource_id]
-    return RedirectResponse(url="/access/", status_code=302)
-
-@router.get("/edit")
-def edit_resource_get(request: Request, resource_id: int):
-    res = next((r for r in resources_db if r["id"] == resource_id), None)
-    if not res:
-        return RedirectResponse(url="/access/")
-    return templates.TemplateResponse("edit_access.html", {"request": request, "resource": res})
-
-@router.post("/edit")
-def edit_resource_post(resource_id: int = Form(...), description: str = Form(...)):
-    for r in resources_db:
-        if r["id"] == resource_id:
-            r["description"] = description
-            break
-    return RedirectResponse(url="/access/", status_code=302)
+    return {"message": "Resource deleted"}
