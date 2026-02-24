@@ -18,7 +18,6 @@ pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
 
 class UserCreate(BaseModel):
-    username: str
     full_name: str
     email: EmailStr
     password: str
@@ -39,23 +38,21 @@ def create_access_token(data: dict):
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 def register(user_in: UserCreate, db: Session = Depends(get_db)):
-    if db.query(User).filter(User.username == user_in.username).first():
-        raise HTTPException(status_code=400, detail="Username already registered")
     if db.query(User).filter(User.email == user_in.email).first():
         raise HTTPException(status_code=400, detail="Email already registered")
     
     hashed_password = pwd_context.hash(user_in.password)
     new_user = User(
-        username=user_in.username,
+        username=user_in.email, # Use email as username
         full_name=user_in.full_name,
         email=user_in.email,
         password=hashed_password,
-        role="user"  # Default role
+        role="user"
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"id": new_user.id, "username": new_user.username, "message": "User created successfully"}
+    return {"id": new_user.id, "email": new_user.email, "message": "User created successfully"}
 
 @router.post("/login")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
